@@ -1,0 +1,7 @@
+name: Catapult
+version: '1.0'
+main: codes.domino.catapult.Catapult
+api-version: '1.20'
+authors: [ domino ]
+description: A mod that consists of many utils that domino finds useful
+website: https://domino.codes
