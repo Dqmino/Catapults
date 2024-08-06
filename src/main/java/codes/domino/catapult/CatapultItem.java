@@ -61,17 +61,16 @@ public class CatapultItem implements Listener {
     }
 
     @EventHandler
-    public void onLeftClick(PlayerInteractEvent event) {
+    public void onUserInteraction(PlayerInteractEvent event) {
         if (event.getClickedBlock() == null) return;
         if (event.getClickedBlock().getType() != Material.DISPENSER) return;
         PersistentDataContainer container = new CustomBlockData(event.getClickedBlock(), Catapult.getInstance());
         if (!container.has(CATAPULT_ITEM_KEY, PersistentDataType.BOOLEAN)) return;
-
+        if (event.getAction() == Action.LEFT_CLICK_BLOCK) return;
+        event.setCancelled(true);
         if (event.getHand() == EquipmentSlot.OFF_HAND) return;
         if (event.getItem() == null) return;
         if (event.getItem().getType() != Material.FIRE_CHARGE) return;
-        if (event.getAction() == Action.LEFT_CLICK_BLOCK) return;
-        event.setCancelled(true);
         event.getItem().setAmount(event.getItem().getAmount() - 1);
         Dispenser dispenser = (Dispenser) event.getClickedBlock().getState();
         Snowball ball = dispenser.getBlockProjectileSource().launchProjectile(Snowball.class);
